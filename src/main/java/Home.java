@@ -47,7 +47,7 @@ public class Home extends javax.swing.JFrame {
         jLabel8.setText("Welcome To Aidkart");
         jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(300, 90, 660, 70);
+        jLabel8.setBounds(300, 90, 670, 70);
 
         jButton1.setText("Sign Up");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -82,24 +82,24 @@ public class Home extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Registration frame=new Registration();
-        dispose();
         frame.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         SignIn frame=new SignIn();
-        dispose();
         frame.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        ProductPage frame=new ProductPage("");
-        dispose();
+        ProductPage frame=new ProductPage("NULL");
         frame.setVisible(true);
+        dispose();
         
     }//GEN-LAST:event_jButton3ActionPerformed
 

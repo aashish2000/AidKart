@@ -1,25 +1,28 @@
+
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+
 /**
  *
  * @author aashi
  */
 public class Registration extends javax.swing.JFrame {
-    
 
     /**
-     * Creates new form Form1
+     * Creates new form Registration
      */
     Connection conn;
     ResultSet rs;
-    
     public Registration() {
         initComponents();
         try{
@@ -62,6 +65,11 @@ public class Registration extends javax.swing.JFrame {
         t7 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jButton1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -72,14 +80,14 @@ public class Registration extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(300, 500, 120, 40);
+        jButton1.setBounds(570, 570, 120, 40);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Name");
         jLabel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(30, 130, 110, 40);
+        jLabel1.setBounds(300, 200, 110, 40);
 
         t1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,14 +95,14 @@ public class Registration extends javax.swing.JFrame {
             }
         });
         getContentPane().add(t1);
-        t1.setBounds(220, 130, 120, 40);
+        t1.setBounds(490, 200, 120, 40);
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Email");
         jLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(30, 190, 110, 40);
+        jLabel2.setBounds(300, 260, 110, 40);
 
         t2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,14 +110,14 @@ public class Registration extends javax.swing.JFrame {
             }
         });
         getContentPane().add(t2);
-        t2.setBounds(220, 190, 120, 40);
+        t2.setBounds(490, 260, 120, 40);
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Mobile No");
         jLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(30, 250, 110, 40);
+        jLabel3.setBounds(300, 320, 110, 40);
 
         t3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,21 +125,21 @@ public class Registration extends javax.swing.JFrame {
             }
         });
         getContentPane().add(t3);
-        t3.setBounds(220, 250, 120, 40);
+        t3.setBounds(490, 320, 120, 40);
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Address");
         jLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(230, 370, 110, 40);
+        jLabel4.setBounds(500, 440, 110, 40);
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("PinCode");
         jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(380, 130, 110, 40);
+        jLabel5.setBounds(650, 200, 110, 40);
 
         t5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,14 +147,14 @@ public class Registration extends javax.swing.JFrame {
             }
         });
         getContentPane().add(t5);
-        t5.setBounds(570, 130, 120, 40);
+        t5.setBounds(840, 200, 120, 40);
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Password");
         jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(380, 250, 110, 40);
+        jLabel6.setBounds(650, 320, 110, 40);
 
         t6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,57 +162,55 @@ public class Registration extends javax.swing.JFrame {
             }
         });
         getContentPane().add(t6);
-        t6.setBounds(570, 190, 120, 40);
+        t6.setBounds(840, 260, 120, 40);
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Username");
         jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(380, 190, 110, 40);
+        jLabel7.setBounds(650, 260, 110, 40);
 
         t4.setColumns(20);
         t4.setRows(5);
         jScrollPane1.setViewportView(t4);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(380, 350, 310, 96);
+        jScrollPane1.setBounds(650, 420, 310, 96);
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Customer Signup");
         jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         getContentPane().add(jLabel8);
-        jLabel8.setBounds(30, 20, 660, 70);
+        jLabel8.setBounds(300, 90, 660, 70);
         getContentPane().add(t7);
-        t7.setBounds(570, 250, 120, 40);
+        t7.setBounds(840, 320, 120, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Statement st;  
+        Statement st;
         int i=0;
         try {
             st = conn.createStatement();
-            rs=st.executeQuery("select * from login where username="+"'"+t6.getText()+"'"); 
-            
-            while(rs.next())  
+            rs=st.executeQuery("select * from login where username="+"'"+t6.getText()+"'");
+
+            while(rs.next())
                 i+=1;
             System.out.println(i);
         } catch (SQLException ex) {
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
-        
-        
-        if("".equals(t1.getText()) && "".equals(t2.getText()) && "".equals(t3.getText()) && "".equals(t4.getText()) && "".equals(t5.getText()) && "".equals(t6.getText()) && "".equals(new String(t7.getPassword())))
-        {  
-            JOptionPane.showMessageDialog(this, "Fill all Fields before Submitting"); 
+
+        if("".equals(t1.getText()) || "".equals(t2.getText()) || "".equals(t3.getText()) || "".equals(t4.getText()) || "".equals(t5.getText()) || "".equals(t6.getText()) || "".equals(new String(t7.getPassword())))
+        {
+            JOptionPane.showMessageDialog(this, "Fill all Fields before Submitting");
         }
         else if(i>0){
-            JOptionPane.showMessageDialog(this, "Username already exists");    
+            JOptionPane.showMessageDialog(this, "Username already exists");
         }
         else{
             String query="Insert into login values(?,?,?,?,?,?,?)";
@@ -223,6 +229,9 @@ public class Registration extends javax.swing.JFrame {
                 stmt.execute();
 
                 JOptionPane.showMessageDialog(this, "Your Account has been created Successfully");
+                SignIn frame=new SignIn();
+                dispose();
+                frame.setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -233,18 +242,14 @@ public class Registration extends javax.swing.JFrame {
             t5.setText("");
             t6.setText("");
             t7.setText("");
-            
+
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void t1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t1ActionPerformed
-
-    private void t6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_t6ActionPerformed
 
     private void t2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t2ActionPerformed
         // TODO add your handling code here:
@@ -257,6 +262,15 @@ public class Registration extends javax.swing.JFrame {
     private void t5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_t5ActionPerformed
+
+    private void t6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_t6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_t6ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        setExtendedState(Registration.MAXIMIZED_BOTH); 
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

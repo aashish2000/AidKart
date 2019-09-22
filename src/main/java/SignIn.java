@@ -111,7 +111,7 @@ public class SignIn extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int i=0;
-        String name="";
+        String username=t1.getText();
         try {
             Statement st;
             st = conn.createStatement();
@@ -119,7 +119,7 @@ public class SignIn extends javax.swing.JFrame {
             
             while(rs.next())
             {
-                name=rs.getString("name");
+                //name=rs.getString("name");
                 i+=1;
             }
                 
@@ -130,7 +130,7 @@ public class SignIn extends javax.swing.JFrame {
         if(i==1){
             JOptionPane.showMessageDialog(this,"Sign In Successful");
             System.out.println("Success");
-            ProductPage prod=new ProductPage(name);
+            ProductPage prod=new ProductPage(username);
             //JFrame now=new JFrame("SignIn");
             dispose();
             prod.setVisible(true);

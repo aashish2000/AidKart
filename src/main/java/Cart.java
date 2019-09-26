@@ -1,4 +1,3 @@
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -348,14 +347,16 @@ public class Cart extends javax.swing.JFrame {
                 
                 for(int j=0;j<qty.size();j++)
                 {
-                    stmt=conn.prepareStatement("Insert into transactions values(?,?,?,?,NOW(),?)");       
+                    stmt=conn.prepareStatement("Insert into transactions values(?,?,?,?,NOW(),?,?)");       
 
                     stmt.setString(1,user);
                     stmt.setString(2,pid.get(j));
                     stmt.setString(3,pname.get(j));
-                    stmt.setInt(4,costs.get(j));
+                    stmt.setDouble(4,costs.get(j));
                     //stmt.setString(5,"CURDATE()");
                     stmt.setInt(5,qty.get(j));
+                    stmt.setDouble(6,costs.get(j)*qty.get(j));
+                    
                     stmt.execute();
                 }
                 stmt=conn.prepareStatement("Delete from cart where username=?");

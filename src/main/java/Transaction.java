@@ -62,6 +62,9 @@ public class Transaction extends javax.swing.JFrame {
             line+=String.format("%1$"+"15"+ "s", "Purchase Date");
             line+=" | ";
             line+=String.format("%1$"+"15"+ "s", "Qty");
+            line+=" | ";
+            line+=String.format("%1$"+"15"+ "s", "Total Price");
+            
             mod.addElement(line);
             line="";
             while(rs.next())
@@ -77,6 +80,8 @@ public class Transaction extends javax.swing.JFrame {
                 line+=String.format("%1$"+"15"+ "s", rs.getString("purchasedate"));
                 line+=" | ";
                 line+=String.format("%1$"+"15"+ "s", rs.getString("qty"));
+                line+=" | ";
+                line+=String.format("%1$"+"15"+ "s", rs.getString("totalprice"));
                 mod.addElement(line);
                 line="";
             }

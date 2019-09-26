@@ -229,7 +229,7 @@ public class Registration extends javax.swing.JFrame {
                 stmt.execute();
 
                 JOptionPane.showMessageDialog(this, "Your Account has been created Successfully");
-                SignIn frame=new SignIn();
+                SignIn frame=new SignIn("buy");
                 dispose();
                 frame.setVisible(true);
             } catch (SQLException ex) {

@@ -1,9 +1,11 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +22,11 @@ public class SignIn extends javax.swing.JFrame {
      */
     
     Connection conn;
+    String val;
     ResultSet rs;
-    public SignIn() {
+    public SignIn(String st) {
         initComponents();
+        val=st;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/aidkart","root","aashish2000");
@@ -127,10 +131,20 @@ public class SignIn extends javax.swing.JFrame {
             Logger.getLogger(SignIn.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(i==1){
+        if(i==1 && "buy".equals(val)){
             JOptionPane.showMessageDialog(this,"Sign In Successful");
             System.out.println("Success");
             ProductPage prod=new ProductPage(username);
+            //JFrame now=new JFrame("SignIn");
+            dispose();
+            prod.setVisible(true);
+        }
+        else if(i==1 && "sell".equals(val)){
+            JOptionPane.showMessageDialog(this,"Sign In Successful");
+            System.out.println("Success");
+            ArrayList<String> parameter;
+            parameter = new ArrayList<>(3);
+            SellPage prod=new SellPage(username,parameter);
             //JFrame now=new JFrame("SignIn");
             dispose();
             prod.setVisible(true);
@@ -182,7 +196,7 @@ public class SignIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SignIn().setVisible(true);
+                new SignIn("").setVisible(true);
             }
         });
     }

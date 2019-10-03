@@ -74,7 +74,7 @@ public class ItemPage extends javax.swing.JFrame {
                 l4.setText(l4.getText()+Integer.toString(rs.getInt("price")));
                 l5.setText(l5.getText()+rs.getString("seller"));
                 l6.setText(l6.getText()+rs.getString("delivery"));
-                
+                l7.setText(l7.getText()+rs.getString("ptype"));
             }
             
             System.out.println(i);
@@ -105,6 +105,7 @@ public class ItemPage extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         l2 = new javax.swing.JLabel();
+        l7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -186,6 +187,12 @@ public class ItemPage extends javax.swing.JFrame {
         l2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(l2);
         l2.setBounds(75, 74, 390, 470);
+
+        l7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        l7.setText("Type: ");
+        l7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(l7);
+        l7.setBounds(1010, 250, 210, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -332,6 +339,7 @@ public class ItemPage extends javax.swing.JFrame {
     private javax.swing.JLabel l4;
     private javax.swing.JLabel l5;
     private javax.swing.JLabel l6;
+    private javax.swing.JLabel l7;
     private javax.swing.JTextArea ta1;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,11 @@
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,8 +24,12 @@ public class SellPage extends javax.swing.JFrame {
      */
     String user;
     ArrayList<String> det=new ArrayList<>();
-    public SellPage(String st,ArrayList<String> arr) {
+    int mulid;
+    Connection conn;
+    ResultSet rs;
+    public SellPage(String st,ArrayList<String> arr,int mul) {
         initComponents();
+        mulid=mul;
         
         System.out.println("Welcome: "+st);
         if(!"NULL".equals(st))
@@ -29,6 +38,74 @@ public class SellPage extends javax.swing.JFrame {
             l1.setText("Guest Mode");
         
         user=st;
+        
+        
+        
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/aidkart","root","aashish2000");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ItemPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        try {
+            Statement s;
+            String query="Select * from products where pid like 'U%' and seller='"+user+"'";
+            s=conn.createStatement();
+            int i=1;
+            rs=s.executeQuery(query);
+            
+            while(rs.next())
+            {
+                if(i==1)
+                {
+                    p1.setIcon(new javax.swing.ImageIcon(rs.getString("image")));
+                    b1.setText(rs.getString("pname"));
+                }
+                if(i==2)
+                {
+                    p2.setIcon(new javax.swing.ImageIcon(rs.getString("image")));
+                    b2.setText(rs.getString("pname"));
+                }
+                if(i==3)
+                {
+                    p3.setIcon(new javax.swing.ImageIcon(rs.getString("image")));
+                    b3.setText(rs.getString("pname"));
+                }
+                if(i==4)
+                {
+                    p4.setIcon(new javax.swing.ImageIcon(rs.getString("image")));
+                    b4.setText(rs.getString("pname"));
+                }
+                if(i==5)
+                {
+                    p5.setIcon(new javax.swing.ImageIcon(rs.getString("image")));
+                    b5.setText(rs.getString("pname"));
+                }
+                if(i==6)
+                {
+                    p6.setIcon(new javax.swing.ImageIcon(rs.getString("image")));
+                    b6.setText(rs.getString("pname"));
+                }
+                if(i==7)
+                {
+                    p7.setIcon(new javax.swing.ImageIcon(rs.getString("image")));
+                    b7.setText(rs.getString("pname"));
+                }
+                if(i==8)
+                {
+                    p8.setIcon(new javax.swing.ImageIcon(rs.getString("image")));
+                    b8.setText(rs.getString("pname"));
+                }
+                
+                i++;
+            }
+                        
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Cart.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void Items(String val,int no)
@@ -36,7 +113,7 @@ public class SellPage extends javax.swing.JFrame {
         det.add(Integer.toString(no));
         det.add("");
         det.add("");
-        AddItemPage it=new AddItemPage(user,det);
+        AddItemPage it=new AddItemPage(user,det,mulid);
         it.setVisible(true);
         dispose();
     }
@@ -56,22 +133,22 @@ public class SellPage extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        b1 = new javax.swing.JButton();
+        p1 = new javax.swing.JLabel();
+        b2 = new javax.swing.JButton();
+        p2 = new javax.swing.JLabel();
+        b3 = new javax.swing.JButton();
+        p3 = new javax.swing.JLabel();
+        b4 = new javax.swing.JButton();
+        p4 = new javax.swing.JLabel();
+        b8 = new javax.swing.JButton();
+        p8 = new javax.swing.JLabel();
+        b7 = new javax.swing.JButton();
+        p7 = new javax.swing.JLabel();
+        b6 = new javax.swing.JButton();
+        p6 = new javax.swing.JLabel();
+        b5 = new javax.swing.JButton();
+        p5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -111,109 +188,109 @@ public class SellPage extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
-        jButton1.setText("Add Item");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        b1.setText("Add Item");
+        b1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                b1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(100, 240, 190, 23);
+        jPanel1.add(b1);
+        b1.setBounds(100, 240, 190, 23);
 
-        jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(100, 10, 190, 280);
+        p1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(p1);
+        p1.setBounds(100, 10, 190, 280);
 
-        jButton2.setText("Add Item");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        b2.setText("Add Item");
+        b2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                b2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2);
-        jButton2.setBounds(380, 240, 190, 23);
+        jPanel1.add(b2);
+        b2.setBounds(380, 240, 190, 23);
 
-        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(380, 10, 190, 280);
+        p2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(p2);
+        p2.setBounds(380, 10, 190, 280);
 
-        jButton3.setText("Add Item");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        b3.setText("Add Item");
+        b3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                b3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3);
-        jButton3.setBounds(660, 240, 190, 23);
+        jPanel1.add(b3);
+        b3.setBounds(660, 240, 190, 23);
 
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(660, 10, 190, 280);
+        p3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(p3);
+        p3.setBounds(660, 10, 190, 280);
 
-        jButton4.setText("Add Item");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        b4.setText("Add Item");
+        b4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                b4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4);
-        jButton4.setBounds(940, 240, 190, 23);
+        jPanel1.add(b4);
+        b4.setBounds(940, 240, 190, 23);
 
-        jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(940, 10, 190, 280);
+        p4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(p4);
+        p4.setBounds(940, 10, 190, 280);
 
-        jButton8.setText("Add Item");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        b8.setText("Add Item");
+        b8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                b8ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8);
-        jButton8.setBounds(940, 540, 190, 23);
+        jPanel1.add(b8);
+        b8.setBounds(940, 540, 190, 23);
 
-        jLabel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel11);
-        jLabel11.setBounds(940, 310, 190, 280);
+        p8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(p8);
+        p8.setBounds(940, 310, 190, 280);
 
-        jButton7.setText("Add Item");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        b7.setText("Add Item");
+        b7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                b7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7);
-        jButton7.setBounds(660, 540, 190, 23);
+        jPanel1.add(b7);
+        b7.setBounds(660, 540, 190, 23);
 
-        jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel10);
-        jLabel10.setBounds(660, 310, 190, 280);
+        p7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(p7);
+        p7.setBounds(660, 310, 190, 280);
 
-        jButton6.setText("Add Item");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        b6.setText("Add Item");
+        b6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                b6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6);
-        jButton6.setBounds(380, 540, 190, 23);
+        jPanel1.add(b6);
+        b6.setBounds(380, 540, 190, 23);
 
-        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel9);
-        jLabel9.setBounds(380, 310, 190, 280);
+        p6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(p6);
+        p6.setBounds(380, 310, 190, 280);
 
-        jButton5.setText("Add Item");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        b5.setText("Add Item");
+        b5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                b5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5);
-        jButton5.setBounds(100, 540, 190, 23);
+        jPanel1.add(b5);
+        b5.setBounds(100, 540, 190, 23);
 
-        jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(100, 310, 190, 280);
+        p5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(p5);
+        p5.setBounds(100, 310, 190, 280);
 
         jScrollPane1.setViewportView(jPanel1);
 
@@ -247,45 +324,45 @@ public class SellPage extends javax.swing.JFrame {
         setExtendedState(SellPage.MAXIMIZED_BOTH);
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
         // TODO add your handling code here:
-        Items(jButton1.getText(),1);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        Items(b1.getText(),1);
+    }//GEN-LAST:event_b1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void b2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b2ActionPerformed
         // TODO add your handling code here:
-        Items(jButton2.getText(),2);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        Items(b2.getText(),2);
+    }//GEN-LAST:event_b2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void b3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b3ActionPerformed
         // TODO add your handling code here:
-        Items(jButton3.getText(),3);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        Items(b3.getText(),3);
+    }//GEN-LAST:event_b3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void b4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b4ActionPerformed
         // TODO add your handling code here:
-        Items(jButton4.getText(),4);
-    }//GEN-LAST:event_jButton4ActionPerformed
+        Items(b4.getText(),4);
+    }//GEN-LAST:event_b4ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void b8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b8ActionPerformed
         // TODO add your handling code here:
-        Items(jButton8.getText(),8);
-    }//GEN-LAST:event_jButton8ActionPerformed
+        Items(b8.getText(),8);
+    }//GEN-LAST:event_b8ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void b7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b7ActionPerformed
         // TODO add your handling code here:
-        Items(jButton7.getText(),7);
-    }//GEN-LAST:event_jButton7ActionPerformed
+        Items(b7.getText(),7);
+    }//GEN-LAST:event_b7ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void b6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b6ActionPerformed
         // TODO add your handling code here:
-        Items(jButton6.getText(),6);
-    }//GEN-LAST:event_jButton6ActionPerformed
+        Items(b6.getText(),6);
+    }//GEN-LAST:event_b6ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void b5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b5ActionPerformed
         // TODO add your handling code here:
-        Items(jButton5.getText(),5);
-    }//GEN-LAST:event_jButton5ActionPerformed
+        Items(b5.getText(),5);
+    }//GEN-LAST:event_b5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -318,33 +395,33 @@ public class SellPage extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ArrayList<String> arr = new ArrayList<>(Arrays.asList("","",""));
-                new SellPage("",arr).setVisible(true);
+                new SellPage("",arr,1).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton b1;
+    private javax.swing.JButton b2;
+    private javax.swing.JButton b3;
+    private javax.swing.JButton b4;
+    private javax.swing.JButton b5;
+    private javax.swing.JButton b6;
+    private javax.swing.JButton b7;
+    private javax.swing.JButton b8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel l1;
+    private javax.swing.JLabel p1;
+    private javax.swing.JLabel p2;
+    private javax.swing.JLabel p3;
+    private javax.swing.JLabel p4;
+    private javax.swing.JLabel p5;
+    private javax.swing.JLabel p6;
+    private javax.swing.JLabel p7;
+    private javax.swing.JLabel p8;
     // End of variables declaration//GEN-END:variables
 }

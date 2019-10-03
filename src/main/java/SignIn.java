@@ -143,8 +143,8 @@ public class SignIn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Sign In Successful");
             System.out.println("Success");
             ArrayList<String> parameter;
-            parameter = new ArrayList<>(3);
-            SellPage prod=new SellPage(username,parameter);
+            parameter = new ArrayList<>(Arrays.asList("","",""));
+            SellPage prod=new SellPage(username,parameter,1);
             //JFrame now=new JFrame("SignIn");
             dispose();
             prod.setVisible(true);

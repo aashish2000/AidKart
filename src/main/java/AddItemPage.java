@@ -22,12 +22,14 @@ public class AddItemPage extends javax.swing.JFrame {
      * Creates new form AddItemPage
      */
     String user;
-    ArrayList<String> info= new ArrayList<>();
+    ArrayList<String> info;
     Connection conn;
     ResultSet rs;
-    
-    public AddItemPage(String st, ArrayList<String> prod) {
+    int mulid;
+    String image;
+    public AddItemPage(String st, ArrayList<String> prod,int mul) {
         initComponents();
+        mulid=mul;
         
         info=prod;
         System.out.println("Welcome: "+st);
@@ -60,8 +62,6 @@ public class AddItemPage extends javax.swing.JFrame {
         l2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         l3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ta1 = new javax.swing.JTextArea();
         l4 = new javax.swing.JLabel();
         l5 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -72,12 +72,20 @@ public class AddItemPage extends javax.swing.JFrame {
         t3 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         t4 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ta1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         l2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        l2.setOpaque(true);
         getContentPane().add(l2);
         l2.setBounds(75, 74, 390, 470);
 
@@ -93,14 +101,6 @@ public class AddItemPage extends javax.swing.JFrame {
         l3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         getContentPane().add(l3);
         l3.setBounds(530, 70, 110, 40);
-
-        ta1.setEditable(false);
-        ta1.setColumns(20);
-        ta1.setRows(5);
-        jScrollPane1.setViewportView(ta1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(530, 140, 510, 80);
 
         l4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         l4.setText("Price:  ");
@@ -160,18 +160,24 @@ public class AddItemPage extends javax.swing.JFrame {
         getContentPane().add(t4);
         t4.setBounds(70, 560, 400, 30);
 
+        ta1.setColumns(20);
+        ta1.setRows(5);
+        jScrollPane2.setViewportView(ta1);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(530, 140, 510, 80);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Statement s;
         if(!"Guest Mode".equals(user))
         {            
             if(l2.getIcon()!=null && !"".equals(t1.getText()) && !"".equals(ta1.getText()) && !"".equals(t2.getText()) && !"".equals(t3.getText()))  
             {
                 try {
-                    String query="Insert into products values(?,?,?,?,?,?)";
+                    String query="Insert into products values(?,?,?,?,?,?,?,?)";
                     PreparedStatement stmt=conn.prepareStatement(query);
                     stmt.setString(1,t1.getText());
                     stmt.setString(2,ta1.getText());
@@ -179,17 +185,34 @@ public class AddItemPage extends javax.swing.JFrame {
                     stmt.setString(4,user);
                     stmt.setString(5,"3-5 Working Days");
                     stmt.setString(6,"U000"+(info.get(0)));
+                    stmt.setString(7,"Refurbished");
+                    stmt.setString(8, image);
                     stmt.execute();
+                    
+                    info.set(1,t1.getText());
                     JOptionPane.showMessageDialog(this,"Product Added Successfully!");
+                    
+                    mulid+=1;
+                    String query2="Update wallet set balance=balance+? where username=?";
+                    PreparedStatement stmt2=conn.prepareStatement(query2);
+                    stmt2.setString(1,t2.getText());
+                    stmt2.setString(2,user);
+                    
+                    stmt2.execute();
+                    
+                    SellPage sell=new SellPage(user,info,mulid);
+                    sell.setVisible(true);
+                    dispose();
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        }
+        
         else{
             JOptionPane.showMessageDialog(this,"Enter Details Correctly!");
         }
-        
+        }
         
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -206,7 +229,7 @@ public class AddItemPage extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        SellPage sell=new SellPage(user,info);
+        SellPage sell=new SellPage(user,info,mulid);
         
         sell.setVisible(true);
         dispose();
@@ -216,8 +239,18 @@ public class AddItemPage extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        String image=l2.getText();
+        image=t4.getText();
+        l2.setIcon(new javax.swing.ImageIcon(image));
+        System.out.println(l2.getIcon());
+        System.out.println(image);
+        info.set(2,image);
+        
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        setExtendedState(AddItemPage.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -250,7 +283,7 @@ public class AddItemPage extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ArrayList<String> arr = new ArrayList<>(Arrays.asList("","",""));
-                new AddItemPage("",arr).setVisible(true);
+                new AddItemPage("",arr,1).setVisible(true);
             }
         });
     }
@@ -260,7 +293,7 @@ public class AddItemPage extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel l1;
     private javax.swing.JLabel l2;
     private javax.swing.JLabel l3;
